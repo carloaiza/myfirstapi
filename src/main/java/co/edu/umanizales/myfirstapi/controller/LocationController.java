@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,10 +43,8 @@ private LocationService locationService;
     @GetMapping
     public List<Location> getLocations() {
         try {
-            // Especifica la ruta del archivo CSV
-            String csvFilePath = "/home/carloaiza/IdeaProjects/myfirstapi/src/main/java/co/edu/umanizales/myfirstapi/locations.csv";
-            return locationService.readLocationsFromCSV(csvFilePath);
-        } catch (IOException e) {
+            return locationService.readLocationsFromCSV();
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
             return null;  // Manejo simple de la excepción
         }
