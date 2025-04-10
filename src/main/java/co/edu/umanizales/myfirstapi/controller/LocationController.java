@@ -5,6 +5,7 @@ import co.edu.umanizales.myfirstapi.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,12 +43,19 @@ private LocationService locationService;
 
     @GetMapping
     public List<Location> getLocations() {
-        try {
-            return locationService.readLocationsFromCSV();
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
-            return null;  // Manejo simple de la excepción
-        }
+
+            return locationService.getLocations();
+
+    }
+
+    @GetMapping(path = "/{code}")
+    public Location getLocationByCode(@PathVariable String code){
+        return locationService.getLocationByCode(code);
+    }
+
+    @GetMapping(path = "/states")
+    public List<Location> getLocationsByStates(){
+        return locationService.getStates();
     }
 
 }
